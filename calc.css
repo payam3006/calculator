@@ -11,7 +11,7 @@ body {
   column-gap: 50px;
   grid-template-columns: auto auto auto auto;
   padding: 10px;
-  background-color: darkslategray;
+  background-color: rgb(30, 53, 53);
   gap: 10px;
   width: px;
   border-radius: 10px;
