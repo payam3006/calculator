@@ -21,3 +21,13 @@ const whrite = (button) => {
 const clearAll = () => {
   document.getElementById("monitor").innerText = "0";
 };
+
+//back space
+const backSpace = () => {
+  document.getElementById("monitor").innerText = document
+    .getElementById("monitor")
+    .innerText.substring(
+      0,
+      document.getElementById("monitor").innerText.length - 1
+    );
+};
