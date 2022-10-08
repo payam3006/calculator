@@ -6,3 +6,18 @@ const documentHeight = () => {
 };
 window.addEventListener("resize", documentHeight);
 documentHeight();
+
+//Whirting on Monitor
+const whrite = (button) => {
+  let text = document.getElementById("monitor").innerText;
+  if (text == "0") {
+    text = "";
+  }
+  text += button;
+  document.getElementById("monitor").innerText = text;
+};
+
+//Clear Monitor
+const clearAll = () => {
+  document.getElementById("monitor").innerText = "0";
+};
