@@ -34,3 +34,40 @@ const backSpace = () => {
     );
   }
 };
+
+//keyboard Whriting
+const keyboardWhrite = (event) => {
+  let character = event.key;
+  console.log(character);
+  if (
+    character == 0 ||
+    character == 9 ||
+    character == 8 ||
+    character == 7 ||
+    character == 6 ||
+    character == 5 ||
+    character == 4 ||
+    character == 3 ||
+    character == 2 ||
+    character == 1 ||
+    character == "." ||
+    character == "(" ||
+    character == ")" ||
+    character == "-" ||
+    character == "+"
+  ) {
+    whrite(character);
+  }
+  if (character == "*") {
+    whrite("×");
+  }
+  if (character == "/") {
+    whrite("÷");
+  }
+  if (character == "Backspace") {
+    backSpace();
+  }
+  if (character == "Delete") {
+    clearAll();
+  }
+};
