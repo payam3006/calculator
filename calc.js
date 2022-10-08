@@ -24,10 +24,13 @@ const clearAll = () => {
 
 //back space
 const backSpace = () => {
-  document.getElementById("monitor").innerText = document
-    .getElementById("monitor")
-    .innerText.substring(
+  let text = document.getElementById("monitor").innerText;
+  if (text.length == 1) {
+    document.getElementById("monitor").innerText = "0";
+  } else {
+    document.getElementById("monitor").innerText = text.substring(
       0,
-      document.getElementById("monitor").innerText.length - 1
+      text.length - 1
     );
+  }
 };
