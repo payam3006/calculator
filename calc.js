@@ -71,3 +71,7 @@ const keyboardWhrite = (event) => {
     clearAll();
   }
 };
+
+const openSettings = () => {
+  document.getElementById("settingsMenue").style.display = "block";
+};

@@ -11,9 +11,20 @@
 
 <body onkeydown="keyboardWhrite(event)">
     <div class="container">
+        <div class="settings">
+            <div class="settingsButton" id="settings" onclick="openSettings()">
+                <img src="img/settings-778.png" alt="settings">
+            </div>
+            <div class="settingsMenue" id="settingsMenue" style="display: none;">
+                <li>Menue1</li>
+                <li>Menue2</li>
+                <li>Menue3</li>
+            </div>
+        </div>
         <div id="monitor" class="grid-item monitor">
             0 </div>
         <div id="control" class="grid-item control">
+
             <div id="history" class="history button">history</div>
             <div id="delete" class="delete button" onclick="backSpace()">delete</div>
         </div>
