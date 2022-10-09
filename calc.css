@@ -55,7 +55,13 @@ COP!!!*/
   background-color: antiquewhite;
   border-radius: 5px;
   overflow: hidden;
+  text-overflow: clip;
+  /* position: relative; */
 }
+/* span {
+  position: absolute;
+  right: 0px;
+} */
 .control {
   grid-column-start: 1;
   grid-column-end: 5;
