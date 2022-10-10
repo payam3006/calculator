@@ -11,27 +11,30 @@
 
 <body onkeydown="keyboardWhrite(event)">
     <div class="container">
-        <div class="settings">
-            <div class="settingsButton" id="settings" onclick="openSettings()">
-                <img src="img/settings-778.png" alt="settings">
-            </div>
-            <div class="settingsMenue" id="settingsMenue" style="display: none;">
-                <li>Menue1</li>
-                <li>Menue2</li>
-                <li>Menue3</li>
+
+        <div class="grid-item monitor">
+            <span id="monitor">
+                0 </span>
+            <div class="settings">
+                <div class="settingsButton" id="settings" onclick="openSettings()">
+                    <img src="img/settings-778.png" alt="settings">
+                </div>
+                <div class="settingsMenue" id="settingsMenue" style="display: none;">
+                    <li>Menue1</li>
+                    <li>Menue2</li>
+                    <li>Menue3</li>
+                </div>
             </div>
         </div>
-        <div id="monitor" class="grid-item monitor">
-            0 </div>
         <div id="control" class="grid-item control">
 
             <div id="history" class="history button">history</div>
-            <div id="delete" class="delete button" onclick="backSpace()">delete</div>
+            <div id="buttonDelete" class="delete button" onclick="backSpace()">delete</div>
         </div>
         <div id="buttonC" class="grid-item C button" onclick="clearAll()">C</div>
         <div id="buttonOpenParenthesis" class="grid-item openParenthesis A button" onclick="whrite('(')">(</div>
         <div id="buttonClosedParenthesis" class="grid-item closedParenthesis A button" onclick="whrite(')')">)</div>
-        <div id=" buttonDevide" class="grid-item devide A button" onclick="whrite('÷')">÷</div>
+        <div id="buttonDevide" class="grid-item devide A button" onclick="whrite('÷')">÷</div>
         <div id="button7" class="grid-item 7 button" onclick="whrite('7')">7</div>
         <div id="button8" class="grid-item 8 button" onclick="whrite('8')">8</div>
         <div id="button9" class="grid-item 9 button" onclick="whrite('9')">9</div>

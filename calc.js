@@ -38,7 +38,6 @@ const backSpace = () => {
 //keyboard Whriting
 const keyboardWhrite = (event) => {
   let character = event.key;
-  console.log(character);
   if (
     character == 0 ||
     character == 9 ||
@@ -49,27 +48,77 @@ const keyboardWhrite = (event) => {
     character == 4 ||
     character == 3 ||
     character == 2 ||
-    character == 1 ||
-    character == "." ||
-    character == "(" ||
-    character == ")" ||
-    character == "-" ||
-    character == "+"
+    character == 1
   ) {
     whrite(character);
+    onClickEffect(character);
+  }
+  if (character == ".") {
+    whrite(character);
+    character = "Decimal";
+    onClickEffect(character);
+  }
+  if (character == "(") {
+    whrite(character);
+
+    character = "OpenParenthesis";
+    onClickEffect(character);
+  }
+  if (character == ")") {
+    whrite(character);
+
+    character = "ClosedParenthesis";
+    onClickEffect(character);
+  }
+  if (character == "-") {
+    whrite(character);
+
+    character = "Minus";
+    onClickEffect(character);
+  }
+  if (character == "+") {
+    whrite(character);
+
+    character = "Plus";
+    onClickEffect(character);
   }
   if (character == "*") {
     whrite("×");
+
+    character = "Cross";
+    onClickEffect(character);
   }
   if (character == "/") {
     whrite("÷");
+
+    character = "Devide";
+    onClickEffect(character);
   }
   if (character == "Backspace") {
     backSpace();
+
+    character = "Delete";
+    onClickEffect(character);
   }
-  if (character == "Delete") {
+  if (character == "Escape") {
     clearAll();
+
+    character = "C";
+    onClickEffect(character);
   }
+};
+
+//onClick effect
+const onClickEffect = (character) => {
+  document
+    .getElementById(`button${character}`)
+    .style.setProperty("opacity", "50%");
+
+  setTimeout(function () {
+    document
+      .getElementById(`button${character}`)
+      .style.setProperty("opacity", "100%");
+  }, 150);
 };
 
 const openSettings = () => {

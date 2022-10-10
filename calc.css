@@ -34,6 +34,7 @@ COP!!!*/
 
   /* min-width: 400px; */
   border-radius: 10px;
+  user-select: none; /* Standard syntax */
 }
 .grid-item {
   /* display: flex; */
@@ -60,12 +61,13 @@ COP!!!*/
   border-radius: 5px;
   overflow: hidden;
   text-overflow: clip;
-  /* position: relative; */
+  position: relative;
 }
-/* span {
+#monitor {
   position: absolute;
-  right: 0px;
-} */
+  right: 8px;
+  user-select: text; /* Standard syntax */
+}
 .control {
   grid-column-start: 1;
   grid-column-end: 5;
@@ -109,14 +111,12 @@ img {
   width: 20px;
 }
 .settings {
-  position: absolute;
-  top: 145px;
-  right: 20px;
   user-select: none; /* Standard syntax */
+  position: absolute;
+  right: 7px;
+  bottom: 2px;
 }
 .settingsButton {
-  position: absolute;
-  right: 0px;
   opacity: 40%;
 }
 .settingsButton:hover {
@@ -124,6 +124,9 @@ img {
   cursor: pointer;
 }
 .settingsMenue {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
   font-family: Arial, Helvetica, sans-serif;
   font-size: small;
   font-weight: bold;
@@ -151,6 +154,7 @@ img {
     height: 90%;
     width: 90%;
   }
+
   .button {
     width: 12vw;
     height: 12vw;
@@ -167,9 +171,5 @@ img {
   body {
     background-color: rgb(30, 53, 53);
     overflow: hidden;
-  }
-  .settings {
-    right: 5%;
-    top: 25%;
   }
 }
