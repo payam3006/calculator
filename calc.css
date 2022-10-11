@@ -68,7 +68,15 @@ COP!!!*/
   right: 8px;
   user-select: text; /* Standard syntax */
 }
+.control,
+.delete,
+.history {
+  height: 20px;
+  justify-items: center;
+  align-items: center;
+}
 .control {
+  position: relative;
   grid-column-start: 1;
   grid-column-end: 5;
   border-radius: 5px;
@@ -80,6 +88,9 @@ COP!!!*/
 }
 
 .delete {
+  right: 15px;
+  position: absolute;
+  font-size: 40px;
   color: rgb(255, 143, 143);
 }
 .history {
@@ -166,6 +177,15 @@ img {
     justify-items: center;
     align-items: center;
     width: 90%;
+  }
+  .control {
+    position: relative;
+  }
+
+  .delete {
+    width: 10%;
+    position: absolute;
+    right: 10px;
   }
 
   body {
