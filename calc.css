@@ -53,7 +53,6 @@ COP!!!*/
 .monitor {
   text-align: right;
   padding: 10px;
-
   grid-column-start: 1;
   grid-column-end: 5;
   height: 85%;
@@ -63,7 +62,8 @@ COP!!!*/
   text-overflow: clip;
   position: relative;
 }
-#monitor {
+#monitorText {
+  font-size: 50px;
   position: absolute;
   right: 8px;
   user-select: text; /* Standard syntax */
@@ -88,10 +88,14 @@ COP!!!*/
 }
 
 .delete {
-  right: 15px;
+  right: 5px;
   position: absolute;
   font-size: 40px;
-  color: rgb(255, 143, 143);
+  background-color: crimson;
+  color: wheat;
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid coral;
 }
 .history {
   color: bisque;
@@ -185,7 +189,7 @@ img {
   .delete {
     width: 10%;
     position: absolute;
-    right: 10px;
+    right: 8px;
   }
 
   body {
