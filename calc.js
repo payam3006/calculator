@@ -21,11 +21,19 @@ const whrite = (button) => {
 //Clear Monitor
 const clearAll = () => {
   document.getElementById("monitorText").innerText = "0";
+  document.getElementById("monitorText").style.fontSize = "50px";
 };
 
 //back space
 const backSpace = () => {
   let text = document.getElementById("monitorText").innerText;
+  if (text[text.length - 1] === "\n") {
+    document.getElementById("monitorText").innerText = text.substring(
+      0,
+      text.length - 1
+    );
+  }
+  text = document.getElementById("monitorText").innerText;
   if (text.length == 1) {
     document.getElementById("monitorText").innerText = "0";
   } else {
@@ -126,46 +134,87 @@ const openSettings = () => {
   document.getElementById("settingsMenue").style.display = "block";
 };
 
-//get the elemnt size in "...px" mode!
-const getFontSize = (elementId) => {
+//get the elemnt font size in "...px" mode!
+const getFontSizeString = (elementId) => {
   const textElement = document.getElementById(elementId);
   const cssTextObj = window.getComputedStyle(textElement, null);
   const fontSize = cssTextObj.getPropertyValue("font-size");
   return fontSize;
 };
 
+//get the elemnt font size in "Number" mode!
+const getFontSize = (elementId) => {
+  const fontSize = parseInt(getFontSizeString(elementId));
+  return fontSize;
+};
+
+//////////////////////////////////////////////////////////////////////////
 const monitorTextLinesNum = () => {
   const text = document.getElementById("monitorText").innerText;
   console.log(text);
 };
 
+//get monitor text
 const monitorText = () => {
   const text = document.getElementById("monitorText").innerText;
+
   return text;
+};
+
+//minify text
+const minifyTextFontSize = () => {
+  //get the elemnt size!
+  const fontSize = getFontSize("monitorText");
+  document.getElementById("monitorText").style.fontSize = `${fontSize - 1}px`;
 };
 
 //analyse and modify monitor text displaying
 const textModify = () => {
+  ////////////////////////////////////////////////////////
   //get the elemnt size!
-  const fontSize = getFontSize("monitorText");
+  let fontSize = getFontSize("monitorText");
 
-  //get the monitor (assume without padding(10px from left and right)) and text width
+  //get the monitor width (assume without padding(10px from left and right))
   const monitorWidth = document.getElementById("monitor").offsetWidth - 20;
-  const spanWidth = document.getElementById("monitorText").offsetWidth;
+
+  //get the text(span) width
+  let spanWidth = document.getElementById("monitorText").offsetWidth;
 
   //see how code is working!
   console.log(
-    `fontSize=${fontSize} , monitorWidth=${monitorWidth} , spanWidth=${spanWidth} , monitorText=${monitorText()} , indexof=${document
+    `BEFORE: fontSize=${fontSize} , monitorWidth=${monitorWidth} , spanWidth=${spanWidth} , monitorText=${monitorText()} , indexof=${document
       .getElementById("monitorText")
-      .innerText.indexOf("<br>")}`
+      .innerText.indexOf("\n")}`
   );
 
+  //////////////////////////////////////////////////////////
   //main operations
-  if (spanWidth > monitorWidth) {
-    if (fontSize == "50px") {
-      document.getElementById("monitorText").style.fontSize = "35px";
-    } else {
-      document.getElementById("monitorText").innerText += "<br>";
+
+  //minify text font size in first line!
+  if (fontSize > 35) {
+    while (spanWidth > monitorWidth) {
+      minifyTextFontSize();
+      spanWidth = document.getElementById("monitorText").offsetWidth;
     }
   }
+  //Enter text after minifying ...
+  if (
+    fontSize <= 35 &&
+    document.getElementById("monitorText").innerText.indexOf("\n") == -1
+  ) {
+    while (spanWidth > monitorWidth) {
+      minifyTextFontSize();
+      spanWidth = document.getElementById("monitorText").offsetWidth;
+    }
+    document.getElementById("monitorText").innerText += "\n";
+  }
+
+  //see how code is working!
+  console.log(
+    `AFTER: fontSize=${parseInt(
+      fontSize
+    )} , monitorWidth=${monitorWidth} , spanWidth=${spanWidth} , monitorText=${monitorText()} , indexof=${document
+      .getElementById("monitorText")
+      .innerText.indexOf("\n")}`
+  );
 };
