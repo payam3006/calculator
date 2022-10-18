@@ -165,7 +165,7 @@ const monitorText = () => {
 const minifyTextFontSize = () => {
   //get the elemnt size!
   const fontSize = getFontSize("monitorText");
-  document.getElementById("monitorText").style.fontSize = `${fontSize - 1}px`;
+  document.getElementById("monitorText").style.fontSize = `${fontSize - 0.1}px`;
 };
 
 //analyse and modify monitor text displaying
@@ -197,10 +197,12 @@ const textModify = () => {
       spanWidth = document.getElementById("monitorText").offsetWidth;
     }
   }
-  //Enter text after minifying ...
+
+  //add Enter to text after minifying ...
   if (
     fontSize <= 35 &&
-    document.getElementById("monitorText").innerText.indexOf("\n") == -1
+    spanWidth > monitorWidth
+    // document.getElementById("monitorText").innerText.indexOf("\n") == -1
   ) {
     while (spanWidth > monitorWidth) {
       minifyTextFontSize();
