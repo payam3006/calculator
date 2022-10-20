@@ -204,11 +204,10 @@ const textModify = () => {
     spanWidth > monitorWidth
     // document.getElementById("monitorText").innerText.indexOf("\n") == -1
   ) {
-    while (spanWidth > monitorWidth) {
-      minifyTextFontSize();
-      spanWidth = document.getElementById("monitorText").offsetWidth;
-    }
-    document.getElementById("monitorText").innerText += "\n";
+    const monitorText = document.getElementById("monitorText").innerText;
+    const lastCharacter = monitorText[monitorText.length - 1];
+    backSpace();
+    document.getElementById("monitorText").innerText += "\n" + lastCharacter;
   }
 
   //see how code is working!
