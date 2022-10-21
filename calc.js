@@ -7,6 +7,9 @@ const documentHeight = () => {
 window.addEventListener("resize", documentHeight);
 documentHeight();
 
+// checker firstTimeGoingOutFromTop
+let firstTimeGoingOutFromTop = 0;
+
 //Whirting on Monitor
 const whrite = (button) => {
   let text = document.getElementById("monitorText").innerText;
@@ -22,6 +25,7 @@ const whrite = (button) => {
 const clearAll = () => {
   document.getElementById("monitorText").innerText = "0";
   document.getElementById("monitorText").style.fontSize = "50px";
+  document.getElementById("monitorText").style.bottom = "";
 };
 
 //back space
@@ -42,6 +46,7 @@ const backSpace = () => {
       text.length - 1
     );
   }
+  backSpaceModify();
 };
 
 //keyboard Whriting
@@ -168,6 +173,13 @@ const minifyTextFontSize = () => {
   document.getElementById("monitorText").style.fontSize = `${fontSize - 0.1}px`;
 };
 
+//raise text font size
+const raiseTextFontSize = () => {
+  //get the elemnt size!
+  const fontSize = getFontSize("monitorText");
+  document.getElementById("monitorText").style.fontSize = `${fontSize + 1}px`;
+};
+
 //analyse and modify monitor text displaying
 const textModify = () => {
   ////////////////////////////////////////////////////////
@@ -179,13 +191,6 @@ const textModify = () => {
 
   //get the text(span) width
   let spanWidth = document.getElementById("monitorText").offsetWidth;
-
-  //see how code is working!
-  console.log(
-    `BEFORE: fontSize=${fontSize} , monitorWidth=${monitorWidth} , spanWidth=${spanWidth} , monitorText=${monitorText()} , indexof=${document
-      .getElementById("monitorText")
-      .innerText.indexOf("\n")}`
-  );
 
   //////////////////////////////////////////////////////////
   //main operations
@@ -199,23 +204,69 @@ const textModify = () => {
   }
 
   //add Enter to text after minifying ...
-  if (
-    fontSize <= 35 &&
-    spanWidth > monitorWidth
-    // document.getElementById("monitorText").innerText.indexOf("\n") == -1
-  ) {
+  if (fontSize <= 35 && spanWidth > monitorWidth) {
     const monitorText = document.getElementById("monitorText").innerText;
     const lastCharacter = monitorText[monitorText.length - 1];
-    backSpace();
+    document.getElementById("monitorText").innerText = monitorText.substring(
+      0,
+      monitorText.length - 1
+    );
     document.getElementById("monitorText").innerText += "\n" + lastCharacter;
   }
 
-  //see how code is working!
-  console.log(
-    `AFTER: fontSize=${parseInt(
-      fontSize
-    )} , monitorWidth=${monitorWidth} , spanWidth=${spanWidth} , monitorText=${monitorText()} , indexof=${document
-      .getElementById("monitorText")
-      .innerText.indexOf("\n")}`
-  );
+  //text going out from top when we reach the bottom of monitor!//////////////////////
+
+  //get the monitor height
+  const monitorHeight = document.getElementById("monitor").offsetHeight - 20;
+
+  //get the text(span) height
+  const spanHeight = document.getElementById("monitorText").offsetHeight;
+
+  if (spanHeight > monitorHeight - 20) {
+    document.getElementById("monitorText").style.bottom = "30px";
+  }
+  ////////////////////////////////////////////////////////////////////////////////////
 };
+
+//backSpace Modifying: analyse and modify monitor text displaying in reverse!!!
+function backSpaceModify() {
+  //get the monitor height
+  const monitorHeight = document.getElementById("monitor").offsetHeight - 20;
+
+  //get the text(span) height
+  const spanHeight = document.getElementById("monitorText").offsetHeight;
+
+  if (spanHeight < monitorHeight - 20) {
+    document.getElementById("monitorText").style.bottom = "";
+  }
+
+  let fontSize = getFontSize("monitorText");
+
+  //get the monitor width (assume without padding(10px from left and right))
+  const monitorWidth = document.getElementById("monitor").offsetWidth - 20;
+
+  //get the text(span) width
+  let spanWidth = document.getElementById("monitorText").offsetWidth;
+
+  console.log(
+    fontSize,
+    monitorText(),
+    document.getElementById("monitorText").innerText.indexOf("\n")
+  );
+
+  if (
+    document.getElementById("monitorText").innerText.indexOf("\n") = -1 &&
+    fontSize < 50
+  ) {
+    raiseTextFontSize();
+    // while (spanWidth < monitorWidth) {
+    //   raiseTextFontSize();
+    //   spanWidth = document.getElementById("monitorText").offsetWidth;
+    //   console.log(
+    //     `fontSize: ${fontSize} , spanWidth: ${spanWidth} , monitorWidth:${monitorWidth} , ${getFontSize(
+    //       "monitorText"
+    //     )}`
+    //   );
+    // }
+  }
+}
