@@ -166,18 +166,11 @@ const monitorText = () => {
   return text;
 };
 
-//minify text
+//minify text font size
 const minifyTextFontSize = () => {
   //get the elemnt size!
   const fontSize = getFontSize("monitorText");
   document.getElementById("monitorText").style.fontSize = `${fontSize - 0.1}px`;
-};
-
-//raise text font size
-const raiseTextFontSize = () => {
-  //get the elemnt size!
-  const fontSize = getFontSize("monitorText");
-  document.getElementById("monitorText").style.fontSize = `${fontSize + 1}px`;
 };
 
 //analyse and modify monitor text displaying
@@ -228,14 +221,22 @@ const textModify = () => {
   ////////////////////////////////////////////////////////////////////////////////////
 };
 
+//raise text font size
+const raiseTextFontSize = () => {
+  //get the elemnt size!
+  const fontSize = getFontSize("monitorText");
+  document.getElementById("monitorText").style.fontSize = `${fontSize + 1.1}px`;
+};
+
 //backSpace Modifying: analyse and modify monitor text displaying in reverse!!!
 function backSpaceModify() {
-  //get the monitor height
+  //get the monitor height (-20 for setting button)
   const monitorHeight = document.getElementById("monitor").offsetHeight - 20;
 
   //get the text(span) height
   const spanHeight = document.getElementById("monitorText").offsetHeight;
 
+  //text going top when not filling entire screen
   if (spanHeight < monitorHeight - 20) {
     document.getElementById("monitorText").style.bottom = "";
   }
@@ -243,30 +244,30 @@ function backSpaceModify() {
   let fontSize = getFontSize("monitorText");
 
   //get the monitor width (assume without padding(10px from left and right))
-  const monitorWidth = document.getElementById("monitor").offsetWidth - 20;
+  let monitorWidth = document.getElementById("monitor").offsetWidth - 20;
 
   //get the text(span) width
   let spanWidth = document.getElementById("monitorText").offsetWidth;
 
-  console.log(
-    fontSize,
-    monitorText(),
-    document.getElementById("monitorText").innerText.indexOf("\n")
-  );
+  // console.log(
+  //   fontSize,
+  //   monitorText(),
+  //   document.getElementById("monitorText").innerText.indexOf("\n")
+  // );
 
   if (
-    document.getElementById("monitorText").innerText.indexOf("\n") = -1 &&
+    document.getElementById("monitorText").innerText.indexOf("\n") == -1 &&
     fontSize < 50
   ) {
-    raiseTextFontSize();
-    // while (spanWidth < monitorWidth) {
-    //   raiseTextFontSize();
-    //   spanWidth = document.getElementById("monitorText").offsetWidth;
-    //   console.log(
-    //     `fontSize: ${fontSize} , spanWidth: ${spanWidth} , monitorWidth:${monitorWidth} , ${getFontSize(
-    //       "monitorText"
-    //     )}`
-    //   );
-    // }
+    while (spanWidth < monitorWidth && fontSize < 50) {
+      raiseTextFontSize();
+      spanWidth = document.getElementById("monitorText").offsetWidth;
+      fontSize = getFontSize("monitorText");
+      // console.log(
+      //   `fontSize: ${fontSize} , spanWidth: ${spanWidth} , monitorWidth:${monitorWidth} , ${getFontSize(
+      //     "monitorText"
+      //   )}`
+      // );
+    }
   }
 }
