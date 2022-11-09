@@ -135,8 +135,27 @@ const onClickEffect = (character) => {
   }, 150);
 };
 
+/////////////////close settingsMenu///////////////////////
+document.addEventListener("click", function handleClickOutsideBox(event) {
+  const box = document.getElementById("settingsMenue");
+
+  if (!box.contains(event.target)) {
+    box.style.display = "none";
+    console.log("shit!");
+  }
+});
+
+////////////////This is shit method for hide menu!!!//////////////////
+// const hideMenue = () => {
+//   if (document.getElementById("settingsMenue").style.display === "block") {
+//     document.getElementById("settingsMenue").style.display = "none";
+//   }
+//   console.log(document.getElementById("settingsMenue").style.display);
+// };
+
 const openSettings = () => {
   document.getElementById("settingsMenue").style.display = "block";
+  console.log("is now block!");
 };
 
 //get the elemnt font size in "...px" mode!
