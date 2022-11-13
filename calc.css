@@ -17,6 +17,14 @@ COP!!!*/
   align-items: center;
 }
 
+.lightMode {
+  --monitorBackgroundColor: antiquewhite;
+}
+
+.darkMode {
+  --monitorBackgroundColor: rgb(59, 59, 59);
+}
+
 .container {
   position: relative;
   width: 262px;
@@ -56,7 +64,7 @@ COP!!!*/
   grid-column-start: 1;
   grid-column-end: 5;
   height: 85%;
-  background-color: antiquewhite;
+  background-color: var(--monitorBackgroundColor);
   border-radius: 5px;
   overflow: hidden;
   text-overflow: clip;
@@ -141,16 +149,31 @@ img {
 .settingsMenue {
   position: absolute;
   right: 0px;
-  bottom: 0px;
+  bottom: 2px;
   font-family: Arial, Helvetica, sans-serif;
   font-size: small;
   font-weight: bold;
-  width: 100px;
+  width: 120px;
   background-color: rgb(231, 209, 179);
   padding: 5px;
   border-radius: 5px;
   opacity: 90%;
+  text-align: left;
+  /* line-height: 18px; */
+  justify-content: center;
+  align-items: center;
 }
+
+.selected {
+  color: brown;
+  cursor: default;
+}
+
+li {
+  color: darkslategray;
+  cursor: pointer;
+}
+
 .button:active {
   opacity: 50%;
 }

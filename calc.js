@@ -1,3 +1,47 @@
+//////////////Set System Default Theme////////////
+let theme;
+function setSystemDefaultTheme() {
+  if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+    document.querySelector("body").classList.add("lightMode");
+    theme = "lightMode";
+  } else {
+    document.querySelector("body").classList.add("darkMode");
+    theme = "darkMode";
+  }
+}
+setSystemDefaultTheme();
+/////////////chnging theme functions/////////////
+let selectedOptionId = "systemDefault";
+
+const selectSystemDefault = () => {
+  document.getElementById(selectedOptionId).classList.remove("selected");
+  document.getElementById("systemDefault").classList.add("selected");
+  document.querySelector("body").classList.remove(theme);
+  setSystemDefaultTheme();
+  selectedOptionId = "systemDefault";
+  closeSettings();
+};
+
+const selectLightMode = () => {
+  document.getElementById(selectedOptionId).classList.remove("selected");
+  document.getElementById("lightMode").classList.add("selected");
+  document.querySelector("body").classList.remove(theme);
+  document.querySelector("body").classList.add("lightMode");
+  selectedOptionId = "lightMode";
+  theme = "lightMode";
+  closeSettings();
+};
+
+const selectDarkMode = () => {
+  document.getElementById(selectedOptionId).classList.remove("selected");
+  document.getElementById("darkMode").classList.add("selected");
+  document.querySelector("body").classList.remove(theme);
+  document.querySelector("body").classList.add("darkMode");
+  selectedOptionId = "darkMode";
+  theme = "darkMode";
+  closeSettings();
+};
+
 //use 100vh for mobile responsive
 //COP!!!
 const documentHeight = () => {
@@ -136,14 +180,21 @@ const onClickEffect = (character) => {
 };
 
 /////////////////close settingsMenu///////////////////////
-document.addEventListener("click", function handleClickOutsideBox(event) {
-  const box = document.getElementById("settingsMenue");
+const box = document.getElementById("settingsMenue");
 
-  if (!box.contains(event.target)) {
-    box.style.display = "none";
-    console.log("shit!");
+document.addEventListener("click", function handleClickOutsideBox(event) {
+  if (IsSettingsOpen) {
+    if (!box.contains(event.target)) {
+      closeSettings();
+    }
   }
 });
+
+const closeSettings = () => {
+  box.style.display = "none";
+  IsSettingsOpen = false;
+  console.log("closed!!");
+};
 
 ////////////////This is shit method for hide menu!!!//////////////////
 // const hideMenue = () => {
@@ -153,10 +204,18 @@ document.addEventListener("click", function handleClickOutsideBox(event) {
 //   console.log(document.getElementById("settingsMenue").style.display);
 // };
 
-const openSettings = () => {
-  document.getElementById("settingsMenue").style.display = "block";
-  console.log("is now block!");
-};
+/////////Is settings Menue Open?//////////////////
+let IsSettingsOpen = false;
+
+//////////////////Open Settings menu/////////////////////
+document.getElementById("settings").addEventListener("click", openSettings);
+function openSettings() {
+  setTimeout(() => {
+    document.getElementById("settingsMenue").style.display = "block";
+    IsSettingsOpen = true;
+    console.log("is now open!");
+  }, 0.1);
+}
 
 //get the elemnt font size in "...px" mode!
 const getFontSizeString = (elementId) => {

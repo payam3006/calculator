@@ -16,13 +16,17 @@
             <div id="monitorText">
                 0 </div>
             <div class="settings">
-                <div class="settingsButton" id="settings" onclick="openSettings()">
+                <div class="settingsButton" id="settings">
                     <img src="img/settings-778.png" alt="settings">
                 </div>
                 <div class="settingsMenue" id="settingsMenue" style="display: none;">
-                    <li>Menue1</li>
-                    <li>Menue2</li>
-                    <li>Menue3</li>
+                    <div>Set Theme:</div>
+                    <hr>
+                    <li id="systemDefault" class="selected" onclick="selectSystemDefault()">System Default</li>
+                    <hr style="opacity: 40%;">
+                    <li id="lightMode" onclick="selectLightMode()">Light Mode</li>
+                    <hr style="opacity: 40%;">
+                    <li id="darkMode" onclick="selectDarkMode()">Dark Mode</li>
                 </div>
             </div>
         </div>
