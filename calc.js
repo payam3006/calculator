@@ -63,6 +63,7 @@ const whrite = (button) => {
   text += button;
   document.getElementById("monitorText").innerText = text;
   textModify();
+  // console.log(eqText(), answer());
 };
 
 //Clear Monitor
@@ -349,3 +350,39 @@ function backSpaceModify() {
     }
   }
 }
+
+///////////////get equation text///////////
+const eqText = () => {
+  let monitorText = document.getElementById("monitorText").innerText;
+  let correctEq = "";
+  for (let i = 0; i < monitorText.length; i++) {
+    if (monitorText[i] == "\n") {
+      i += 1;
+    }
+    correctEq += monitorText[i];
+  }
+  correctEq = correctEq.replace(/×/g, "*").replace(/÷/g, "/");
+  return correctEq;
+};
+
+//////////////answer Func.////////////
+const answer = () => {
+  let equation = eqText();
+  try {
+    return eval(equation);
+  } catch (ERROR) {
+    return "eval error!";
+  }
+};
+
+/////////////print answer func.//////////////
+function printAnswer() {
+  document.getElementById("answer").innerText = answer();
+}
+
+/////////////Check Function!//////////////////
+const check = () => {
+  console.log("eqText", eqText());
+  console.log("answer", answer());
+  printAnswer();
+};

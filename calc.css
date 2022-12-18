@@ -139,6 +139,15 @@ img {
   right: 7px;
   bottom: 2px;
 }
+
+#answer {
+  position: absolute;
+  left: 7px;
+  bottom: 0px;
+  color: green;
+  /* width: 88%; */
+  overflow: hidden;
+}
 .settingsButton {
   opacity: 40%;
 }
@@ -162,6 +171,7 @@ img {
   /* line-height: 18px; */
   justify-content: center;
   align-items: center;
+  z-index: 1;
 }
 
 .selected {
