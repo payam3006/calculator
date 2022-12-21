@@ -57,10 +57,160 @@ let firstTimeGoingOutFromTop = 0;
 //Whirting on Monitor
 const whrite = (button) => {
   let text = document.getElementById("monitorText").innerText;
-  if (text == "0") {
+  let canDecimal = true;
+  let canCloseParenthesis = true;
+  if (text == "0" && button !== "." && button !== ")") {
     text = "";
   }
-  text += button;
+
+  //check can writing "."
+  if (button == ".") {
+    if (text[text.length - 1] == ".") {
+      canDecimal = false;
+    } else {
+      let lastIndexOfDecimal;
+      for (i = text.length - 1; i >= 0; i--) {
+        if (text[i] == ".") {
+          lastIndexOfDecimal = i;
+          // console.log("lastindex", lastIndexOfDecimal);
+          break;
+        }
+      }
+      for (j = text.length - 1; j > lastIndexOfDecimal; j--) {
+        // console.log("j", j, "candecimal", canDecimal);
+        if (
+          text[j] == 0 ||
+          text[j] == 1 ||
+          text[j] == 2 ||
+          text[j] == 3 ||
+          text[j] == 4 ||
+          text[j] == 5 ||
+          text[j] == 6 ||
+          text[j] == 7 ||
+          text[j] == 8 ||
+          text[j] == 9
+        ) {
+          canDecimal = false;
+        } else {
+          canDecimal = true;
+          break;
+        }
+      }
+    }
+    if (
+      canDecimal &&
+      text[text.length - 1] !== "0" &&
+      text[text.length - 1] !== "1" &&
+      text[text.length - 1] !== "2" &&
+      text[text.length - 1] !== "3" &&
+      text[text.length - 1] !== "4" &&
+      text[text.length - 1] !== "5" &&
+      text[text.length - 1] !== "6" &&
+      text[text.length - 1] !== "7" &&
+      text[text.length - 1] !== "8" &&
+      text[text.length - 1] !== "9" &&
+      (text[text.length - 1] == "+" ||
+        text[text.length - 1] == "-" ||
+        text[text.length - 1] == "×" ||
+        text[text.length - 1] == "(" ||
+        text[text.length - 1] == "÷")
+    ) {
+      text += "0";
+    }
+    if (canDecimal && text[text.length - 1] == ")") {
+      text += "×0";
+    }
+  }
+
+  //check write ZERO!
+  // 0000.34 NOT!!!
+  if (button == "0") {
+  }
+
+  // check write "("
+  if (button == "(") {
+    if (text[text.length - 1] == ".") {
+      text = text.slice(0, -1);
+    }
+    if (
+      text !== "" &&
+      text[text.length - 1] !== "+" &&
+      text[text.length - 1] !== "-" &&
+      text[text.length - 1] !== "×" &&
+      text[text.length - 1] !== "÷" &&
+      text[text.length - 1] !== "("
+    ) {
+      text += "×";
+    }
+  }
+
+  //function for number of open Parenthesis
+  const OpenParenthesisNomber = () => {
+    let answer = 0;
+    for (i = 0; i < text.length; i++) {
+      if (text[i] == "(") {
+        answer += 1;
+      }
+    }
+    return answer;
+  };
+
+  //function for number of closed Parenthesis
+  const closedParenthesisNomber = () => {
+    let answer = 0;
+    for (i = 0; i < text.length; i++) {
+      if (text[i] == ")") {
+        answer += 1;
+      }
+    }
+    return answer;
+  };
+
+  // check write ")"
+  if (button == ")") {
+    if (OpenParenthesisNomber() <= closedParenthesisNomber()) {
+      canCloseParenthesis = false;
+    } else {
+      if (text[text.length - 1] == ".") {
+        text = text.slice(0, -1);
+      }
+    }
+  }
+
+  //checking in writing operations
+  if (button == "+" || button == "-" || button == "÷" || button == "×") {
+    if (
+      text[text.length - 1] == "." ||
+      text[text.length - 1] == "+" ||
+      text[text.length - 1] == "÷" ||
+      text[text.length - 1] == "×" ||
+      text[text.length - 1] == "-"
+    ) {
+      text = text.slice(0, -1);
+    }
+  }
+
+  //putting cross before numbers
+  if (
+    button == "0" ||
+    button == "1" ||
+    button == "2" ||
+    button == "3" ||
+    button == "4" ||
+    button == "5" ||
+    button == "6" ||
+    button == "7" ||
+    button == "8" ||
+    button == "9"
+  ) {
+    if (text[text.length - 1] == ")") {
+      text += "×";
+    }
+  }
+
+  if (canDecimal && canCloseParenthesis) {
+    text += button;
+  }
   document.getElementById("monitorText").innerText = text;
   textModify();
   // console.log(eqText(), answer());
@@ -71,6 +221,7 @@ const clearAll = () => {
   document.getElementById("monitorText").innerText = "0";
   document.getElementById("monitorText").style.fontSize = "50px";
   document.getElementById("monitorText").style.bottom = "";
+  document.getElementById("answer").innerText = "";
 };
 
 //back space
@@ -365,9 +516,29 @@ const eqText = () => {
   return correctEq;
 };
 
+///////////is last character an operation?////////////////
+const isLastCharacterOperation = () => {
+  let monitorText = document.getElementById("monitorText").innerText;
+  let lastCharacter = monitorText[monitorText.length - 1];
+  if (
+    lastCharacter == "+" ||
+    lastCharacter == "-" ||
+    lastCharacter == "×" ||
+    lastCharacter == "÷"
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 //////////////answer Func.////////////
 const answer = () => {
   let equation = eqText();
+
+  if (isLastCharacterOperation()) {
+    equation = equation.slice(0, -1);
+  }
   try {
     return eval(equation);
   } catch (ERROR) {
@@ -386,3 +557,5 @@ const check = () => {
   console.log("answer", answer());
   printAnswer();
 };
+
+////////////update answer if needed!//////////////
