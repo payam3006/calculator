@@ -59,7 +59,16 @@ const whrite = (button) => {
   let text = document.getElementById("monitorText").innerText;
   let canDecimal = true;
   let canCloseParenthesis = true;
-  if (text == "0" && button !== "." && button !== ")") {
+  let canOperation = true;
+  if (
+    text == "0" &&
+    button !== "." &&
+    button !== ")" &&
+    button !== "+" &&
+    button !== "-" &&
+    button !== "×" &&
+    button !== "÷"
+  ) {
     text = "";
   }
 
@@ -168,10 +177,19 @@ const whrite = (button) => {
 
   // check write ")"
   if (button == ")") {
-    if (OpenParenthesisNomber() <= closedParenthesisNomber()) {
+    if (
+      OpenParenthesisNomber() <= closedParenthesisNomber() ||
+      text[text.length - 1] == "("
+    ) {
       canCloseParenthesis = false;
     } else {
-      if (text[text.length - 1] == ".") {
+      if (
+        text[text.length - 1] == "." ||
+        text[text.length - 1] == "+" ||
+        text[text.length - 1] == "÷" ||
+        text[text.length - 1] == "×" ||
+        text[text.length - 1] == "-"
+      ) {
         text = text.slice(0, -1);
       }
     }
@@ -187,6 +205,9 @@ const whrite = (button) => {
       text[text.length - 1] == "-"
     ) {
       text = text.slice(0, -1);
+    }
+    if (text[text.length - 1] == "(") {
+      canOperation = false;
     }
   }
 
@@ -208,11 +229,12 @@ const whrite = (button) => {
     }
   }
 
-  if (canDecimal && canCloseParenthesis) {
+  if (canDecimal && canCloseParenthesis && canOperation) {
     text += button;
   }
   document.getElementById("monitorText").innerText = text;
   textModify();
+  checkAnswer();
   // console.log(eqText(), answer());
 };
 
@@ -532,17 +554,94 @@ const isLastCharacterOperation = () => {
   }
 };
 
-//////////////answer Func.////////////
+//Global function for number of open Parenthesis
+const OpenParenthesisNomber = () => {
+  let answer = 0;
+  let text = monitorText();
+  for (i = 0; i < text.length; i++) {
+    if (text[i] == "(") {
+      answer += 1;
+    }
+  }
+  return answer;
+};
+
+//Global function for number of closed Parenthesis
+const closedParenthesisNomber = () => {
+  let answer = 0;
+  let text = monitorText();
+  for (i = 0; i < text.length; i++) {
+    if (text[i] == ")") {
+      answer += 1;
+    }
+  }
+  return answer;
+};
+
+//////////////(with Keis instead of Equal key) update answer Func.////////////
+const updateAnswer = () => {
+  let equation = eqText();
+
+  if (isLastCharacterOperation()) {
+    equation = equation.slice(0, -1);
+  }
+  if (OpenParenthesisNomber() > closedParenthesisNomber()) {
+    let a = OpenParenthesisNomber() - closedParenthesisNomber();
+    for (i = 0; i < a; i++) {
+      equation += ")";
+    }
+  }
+  try {
+    return eval(equation);
+  } catch (ERROR) {
+    return "";
+  }
+};
+
+//////////////Check if answer?! print it/////////////////
+function checkAnswer() {
+  if (ifEquation()) {
+    document.getElementById("answer").innerText = updateAnswer();
+  }
+}
+
+////////////////check if monitor text is an equation//////////////
+const ifEquation = () => {
+  let answer = false;
+  let text = monitorText();
+  for (i = text.length - 1; i >= 0; i--) {
+    if (
+      text[i] == "(" ||
+      text[i] == ")" ||
+      text[i] == "×" ||
+      text[i] == "÷" ||
+      text[i] == "-" ||
+      text[i] == "+"
+    ) {
+      answer = true;
+      break;
+    }
+  }
+  return answer;
+};
+
+//////////////(with Equal Key!) answer Func.////////////
 const answer = () => {
   let equation = eqText();
 
   if (isLastCharacterOperation()) {
     equation = equation.slice(0, -1);
   }
+  if (OpenParenthesisNomber() > closedParenthesisNomber()) {
+    let a = OpenParenthesisNomber() - closedParenthesisNomber();
+    for (i = 0; i < a; i++) {
+      equation += ")";
+    }
+  }
   try {
     return eval(equation);
   } catch (ERROR) {
-    return "eval error!";
+    return "Incorrect Equation!";
   }
 };
 
